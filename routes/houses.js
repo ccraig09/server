@@ -58,13 +58,52 @@ router.get("/", (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-//api/houses/id
+// /api/houses/id
 router.get("/:id", (req, res) => {
 	const houseId = req.params.id;
 
 	House.findById(houseId)
 		.then((house) => {
 			res.send(house);
+		})
+		.catch((err) => console.log(err));
+});
+
+// /api/houses/id
+router.put("/:id", validate, (req, res) => {
+	const houseId = req.params.id;
+
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ errors: errors.array() });
+	}
+
+	House.findById(houseId)
+		.then((house) => {
+			house.title = req.body.title;
+			house.address = req.body.address;
+			house.homeType = req.body.homeType;
+			house.description = req.body.description;
+			house.price = req.body.price;
+			house.image = req.body.image;
+			house.yearBuilt = req.body.yearBuilt;
+
+			return house.save();
+		})
+		.then((result) => {
+			res.send(result);
+		})
+		.catch((err) => console.log(err));
+});
+
+// /api/houses/id
+router.delete("/:id", (req, res) => {
+	const houseId = req.params.id;
+
+	House.findByIdAndRemove(houseId)
+		.then((result) => {
+			res.send(result);
 		})
 		.catch((err) => console.log(err));
 });

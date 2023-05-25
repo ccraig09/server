@@ -18,14 +18,15 @@ app.use("/api/houses", houses);
 
 require("dotenv").config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
+const host = "0.0.0.0";
 
 mongoose
 	.connect(
 		`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.8ny7oth.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 	)
 	.then((result) => {
-		app.listen(port, () =>
+		app.listen(process.env.PORT || 5000, host, () =>
 			console.log(`Server is running on port ${process.env.PORT}`)
 		);
 	})

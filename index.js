@@ -2,8 +2,11 @@ const express = require("express");
 
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const houses = require("./routes/houses");
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -19,7 +22,11 @@ const port = process.env.PORT || 3000;
 
 mongoose
 	.connect(
-		"mongodb+srv://kingslife_node_react-native_1:MX0NhNtnk8OKmm3B@cluster0.8ny7oth.mongodb.net/house_app?retryWrites=true&w=majority"
+		`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.8ny7oth.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		}
 	)
 	.then((result) => {
 		app.listen(port, () =>

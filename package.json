@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,6 @@
     "nodemon": "^2.0.22"
   },
   "engines": {
-    "node": "18.5.0"
+    "node": ">=12.18.0"
   }
 }
